@@ -1,20 +1,21 @@
-import React, {Component} from "react";
+import React, {Component, useEffect} from "react";
 import { render } from "react-dom";
 import HomePage from "./HomePage";
 
-export default class App extends Component {
-    constructor(props) {
-        super(props);
-    }
+function App(){
+    useEffect(() => {
 
-    render() {
-        return (
-            <div>
+    }, []);
+
+    return (
+            <div className="center">
                 <HomePage />
             </div>
         );
-    }
 }
+
 
 const appDiv = document.getElementById("app");
 render(<App />, appDiv);
+
+export default App;

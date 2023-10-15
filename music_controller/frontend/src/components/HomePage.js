@@ -25,6 +25,10 @@ function HomePage(){
   }, []);
 
 
+  const ClearRoomCode = () =>{
+      setRoomCode(null)
+  }
+
   function renderHomePage(){
     return (
       <Grid container spacing={3}>
@@ -56,7 +60,8 @@ function HomePage(){
           <Route exact path="/join" element={<RoomJoinPage />} />
           <Route path="/join/:roomId" element={<RoomJoinPage />} />
           <Route exact path="/create" element={<CreateRoomPage />} />
-          <Route path="/room/:roomCode" element={<Room />} />
+          <Route path="/room/:roomCode"
+                 element={<Room leaveRoomCallback={ClearRoomCode} />} />
         </Routes>
       </Router>
     );

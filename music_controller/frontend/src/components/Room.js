@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {Link, useParams, useNavigate} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {Grid, Button, Typography} from "@material-ui/core"
 import CreateRoomPage from "./CreateRoomPage";
 
-function Room({leaveRoomCallback}) {
+function Room(props) {
   const { roomCode } = useParams();
 
   const [votesToSkip, setVotesToSkip] = useState(2);
@@ -21,13 +21,12 @@ function Room({leaveRoomCallback}) {
     fetch("/api/get-room" + "?code=" + roomCode)
       .then((response) => {
           if (!response.ok){
-              leaveRoomCallback();
+              props.leaveRoomCallback();
               navigate("/");
           }
           return response.json()
       })
       .then((data) => {
-          console.log(data.is_host)
         setVotesToSkip(data.votes_to_skip);
         setGuestCanPause(data.guest_can_pause);
         setIsHost(data.is_host);
@@ -42,7 +41,7 @@ function Room({leaveRoomCallback}) {
             headers: { 'Content-Type': 'application/json' },
         };
       fetch('/api/leave-room/', requestOptions).then((_response) =>{
-          leaveRoomCallback();
+          props.leaveRoomCallback();
           navigate("/");
       });
   }
@@ -60,7 +59,7 @@ function Room({leaveRoomCallback}) {
                   voteToSkip={votesToSkip}
                   guestCanPause={guestCanPause}
                   roomCode={roomCode}
-                  updateCallback={() => {}}
+                  updateCallback={getRoomDetails}
               />
           </Grid>
           <Grid item xs={12} align="center">

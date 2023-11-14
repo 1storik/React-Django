@@ -21,8 +21,8 @@ from .yasg import urlpatterns as doc_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path('', include('frontend.urls'))
-
+    path('', include('frontend.urls')),
+    path('spotify/', include('spotify.urls'))
 ]
 
 urlpatterns += doc_urls
